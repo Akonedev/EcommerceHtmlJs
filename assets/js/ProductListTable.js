@@ -9,9 +9,53 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const catalogModalLabel = document.getElementById("categoryModalLabel");
   const catModalBody = document.getElementById("categoryModalBody");
   const catModalFooter = document.getElementById("categoryModalFooter");
+  // const bestSellOrderBtn = document.getElementById("bestSellOrder");
 
+  const bestSellOrderBtn = document.querySelectorAll("button.bestSellOrder");
+
+  
   const orderIdCounter = 123456;
   let category = "";
+  let ShopCart = localStorage;
+
+  bestSellOrderBtn.forEach(function() {
+    bestSellOrderBtn.onclick = function () {
+        OrderBesSell();
+      };
+  });
+
+  // bestSellOrderBtn.onclick = function () {
+  //   OrderBesSell();
+  // };
+
+  function OrderBesSell() {
+      let tempOrderIdCounter = orderIdCounter + 1;
+    let orderDate = Date.now();
+    let orderQty = 1;
+    let orderProdNameTemp = document.getElementById("bestSellLabel");
+    let orderProdName= orderProdNameTemp.textContent
+    let orderProdPriceTemp = document.getElementById("bestSellPrice");
+    let orderProdPrice=orderProdPriceTemp.textContent
+    let total = orderProdPrice * orderQty;
+
+    alert("bestSellLabel = " + orderProdName + "    bestSellPrice = " + orderProdPrice)
+    const oId = "abdk";
+
+    let orderId = oId + tempOrderIdCounter;
+    console.log("prderId = " + orderId);
+
+    let orderArray = [
+      orderId,
+      orderDate,
+      orderProdName,
+      orderProdPrice,
+      orderQty,
+      total,
+    ];
+
+    localStorage.setItem(orderId, JSON.stringify(orderArray));
+    tempOrderIdCounter = tempOrderIdCounter + 1;
+  }
 
   async function populate() {
     const requestURL = "./assets/json/ProductList.json";
@@ -24,7 +68,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     catEarPhone.onclick = function () {
       catModalBody.innerHTML = "";
-      cartTotalGeneral.innerHTML ="";
+      cartTotalGeneral.innerHTML = "";
       category = "earphone";
       catalogModalLabel.innerHTML = "Catalog  -  " + category.toUpperCase();
       populateProducts(products, category);
@@ -32,7 +76,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     catLaptop.onclick = function () {
       catModalBody.innerHTML = "";
-      cartTotalGeneral.innerHTML ="";
+      cartTotalGeneral.innerHTML = "";
       category = "laptop";
       catalogModalLabel.innerHTML = "Catalog  -  " + category.toUpperCase();
       populateProducts(products, category);
@@ -40,7 +84,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     catGaming.onclick = function () {
       catModalBody.innerHTML = "";
-      cartTotalGeneral.innerHTML ="";
+      cartTotalGeneral.innerHTML = "";
       category = "gaming";
       catalogModalLabel.innerHTML = "Catalog  -  " + category.toUpperCase();
       populateProducts(products, category);
@@ -48,7 +92,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   }
 
   function populateProducts(obj, category) {
-    cartTotalGeneral.innerHTML ="";
+    cartTotalGeneral.innerHTML = "";
 
     const productList = obj["products"];
     let popCategory = category;
@@ -97,8 +141,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     catModalBody.appendChild(table);
 
     for (const product of productList) {
-       if (product.Categorie == popCategory) {
-         
+      if (product.Categorie == popCategory) {
         // Creating and adding data to second row of the table
         let row_2 = document.createElement("tr");
 
@@ -120,6 +163,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         row_2_data_5.textContent = `${product.status}`;
 
         let qty = document.createElement("input");
+
+        // qty.defaultValue="1";
+        // qty.setAttribute("defaultValue", 1);
         qty.setAttribute("id", "prodQty");
         qty.setAttribute("type", "number");
         qty.setAttribute("value", "default");
@@ -132,7 +178,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let tempOrderIdCounter = orderIdCounter + 1;
 
         btn.onclick = function () {
-          let ShopCart = localStorage;
+          // qty.defaultValue=1;
+          Order();
+        };
+
+        function Order() {
+          // qty.defaultValue=1;
+          ShopCart = localStorage;
           let orderDate = Date.now();
           let orderQty = qty.value;
           let orderProdName = product.prodName;
@@ -154,7 +206,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
           localStorage.setItem(orderId, JSON.stringify(orderArray));
           tempOrderIdCounter = tempOrderIdCounter + 1;
-        };
+          alert("Votre commande est validée");
+        }
 
         row_2_data_1.appendChild(img);
         row_2.appendChild(row_2_data_1);
@@ -167,6 +220,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         tbody.appendChild(row_2);
       }
     }
-   }
+  
+  }
   populate();
 });

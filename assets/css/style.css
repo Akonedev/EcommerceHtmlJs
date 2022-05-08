@@ -113,3 +113,8 @@
     width: 216px;
     height: 302px;
 }
+.btnclass{
+    width: 10em;
+    height: 2em;
+    text-align: center;
+}
