@@ -1,0 +1,60 @@
+{
+    "catalogID" : 12568,
+    "catalogName" : "Catalog 2022",
+    "catalogDesc" : "Catalogue de produits pour l'année 2022",
+    "status" : "Actif",
+    "products" : [
+      {
+        "prodId" : 99334,
+        "prodName" : "iPhone12 ",
+        "prodDesc" : "Bleu - 64 Go",
+        "prodPrice" : 809.00,
+        "image" : "Smartphones",
+        "status" : "En stock",
+        "Categorie" : "Smartphones",
+        "tags" : [
+          "Smartphones",
+          "Electronic"
+        ]
+      },
+      {
+        "prodId" : 99334,
+        "prodName" : "dell laptop",
+        "prodDesc" : "Bleu - 64 Go",
+        "prodPrice" : 809.00,
+        "image" : "Smartphones",
+        "status" : "En stock",
+        "Categorie" : "laptop",
+        "tags" : [
+          "Smartphones",
+          "Electronic"
+        ]
+      },
+      {
+        "prodId" : 99334,
+        "prodName" : "Bose QC35 II ",
+        "prodDesc" : "Bleu - 64 Go",
+        "prodPrice" : 809.00,
+        "image" : "earphone",
+        "status" : "En stock",
+        "Categorie" : "earphone",
+        "tags" : [
+          "Smartphones",
+          "Electronic"
+        ]
+      },
+      {
+        "prodId" : 99334,
+        "prodName" : "tv samsung ",
+        "prodDesc" : "Bleu - 64 Go",
+        "prodPrice" : 809.00,
+        "image" : "tv",
+        "status" : "En stock",
+        "Categorie" : "tv",
+        "tags" : [
+          "Smartphones",
+          "Electronic"
+        ]
+      }
+    ]
+  }
