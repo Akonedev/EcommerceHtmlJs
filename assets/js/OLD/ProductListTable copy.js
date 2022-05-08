@@ -12,18 +12,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // const bestSellOrderBtn = document.getElementById("bestSellOrder");
 
   const bestSellOrderBtn = document.querySelectorAll("button.bestSellOrder");
-
+  let qty = document.createElement("input");
+  let btn = document.createElement("button");
+  btn.innerHTML = "Ajouter au Panier";
   const orderIdCounter = 123456;
-
-  let orderId = orderIdCounter + 1;
-
+  const oId = "abdk";
   let category = "";
+  let orderId="";
   let ShopCart = localStorage;
+  // qty=1;
+  let orderQty =0;
+  let orderProdName = "";
+  let orderProdPrice = 0;
 
-  bestSellOrderBtn.forEach(function () {
+
+  bestSellOrderBtn.forEach(function() {
     bestSellOrderBtn.onclick = function () {
-      OrderBesSell();
-    };
+        OrderBesSell();
+      };
   });
 
   // bestSellOrderBtn.onclick = function () {
@@ -31,24 +37,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // };
 
   function OrderBesSell() {
-    tempOrderIdCounter = orderIdCounter + 1;
+      let tempOrderIdCounter = orderIdCounter + 1;
     let orderDate = Date.now();
     let orderQty = 1;
     let orderProdNameTemp = document.getElementById("bestSellLabel");
-    let orderProdName = orderProdNameTemp.textContent;
+    let orderProdName= orderProdNameTemp.textContent
     let orderProdPriceTemp = document.getElementById("bestSellPrice");
-    let orderProdPrice = orderProdPriceTemp.textContent;
+    let orderProdPrice=orderProdPriceTemp.textContent
     let total = orderProdPrice * orderQty;
 
-    alert(
-      "bestSellLabel = " +
-        orderProdName +
-        "    bestSellPrice = " +
-        orderProdPrice
-    );
+    alert("bestSellLabel = " + orderProdName + "    bestSellPrice = " + orderProdPrice)
     const oId = "abdk";
 
-    orderId = tempOrderIdCounter;
+    let orderId = oId + tempOrderIdCounter;
     console.log("prderId = " + orderId);
 
     let orderArray = [
@@ -61,6 +62,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     ];
 
     localStorage.setItem(orderId, JSON.stringify(orderArray));
+    tempOrderIdCounter = tempOrderIdCounter + 1;
   }
 
   async function populate() {
@@ -132,7 +134,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     heading_6.innerHTML = "Quantite a commander";
 
     let heading_7 = document.createElement("th");
-    heading_7.innerHTML = "Commander";
+    heading_7.innerHTML = "Ajouter au Panier";
 
     row_1.appendChild(heading_1);
     row_1.appendChild(heading_2);
@@ -148,7 +150,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     for (const product of productList) {
       if (product.Categorie == popCategory) {
-
         // Creating and adding data to second row of the table
         let row_2 = document.createElement("tr");
 
@@ -169,53 +170,54 @@ document.addEventListener("DOMContentLoaded", (event) => {
         row_2_data_4.textContent = `${product.prodPrice}`;
         row_2_data_5.textContent = `${product.status}`;
 
-        let qty = document.createElement("input");
+        // let qty = document.createElement("input");
 
         qty.setAttribute("id", "prodQty");
         qty.setAttribute("type", "number");
         qty.setAttribute("value", "default");
         row_2_data_6.appendChild(qty);
 
-        let btn = document.createElement("button");
-        btn.innerHTML = "Commander";
+        // let btn = document.createElement("button");
+        // btn.innerHTML = "Ajouter au Panier";
         row_2_data_7.appendChild(btn);
 
-        orderId = orderId + 1;
-        localStorage.setItem("orderId", orderId);
+        let tempOrderIdCounter = orderIdCounter + 1;
 
         btn.onclick = function () {
-          qty.defaultValue=1;
+          tempOrderIdCounter = tempOrderIdCounter + 1;
+          orderId = oId + tempOrderIdCounter;
           Order();
+          tempOrderIdCounter = tempOrderIdCounter + 1;
         };
 
-        function Order() {
-          // qty.defaultValue=1;
-          ShopCart = localStorage;
-          let orderDate = Date.now();
-          let orderQty = qty.value;
-          let orderProdName = product.prodName;
-          let orderProdPrice = product.prodPrice;
-          let total = product.prodPrice * orderQty;
-          const oId = "abdk";
 
-          let orderArray = [
-            orderId,
-            orderDate,
-            orderProdName,
-            orderProdPrice,
-            orderQty,
-            total,
-          ];
+        // Order();
+        // function Order() {
+        //   // qty.defaultValue=1;
+        //   ShopCart = localStorage;
+        //   let orderDate = Date.now();
+        //   let orderQty = qty.value;
+        //   let orderProdName = product.prodName;
+        //   let orderProdPrice = product.prodPrice;
+        //   let total = product.prodPrice * orderQty;
+          
+        //   // tempOrderIdCounter = tempOrderIdCounter + 1;
+        //   // let orderId = oId + tempOrderIdCounter;
+        //   //console.log("prderId = " + orderId);
 
-          orderId = localStorage.getItem("orderId");
-          orderId = parseInt (orderId, 10) + 1;
+        //   let orderArray = [
+        //     orderId,
+        //     orderDate,
+        //     orderProdName,
+        //     orderProdPrice,
+        //     orderQty,
+        //     total,
+        //   ];
 
-          localStorage.setItem(orderId, JSON.stringify(orderArray));
-
-          orderId = orderId + 1;
-          localStorage.setItem("orderId", orderId);
-          alert("Votre commande est validée");
-        }
+        //   localStorage.setItem(orderId, JSON.stringify(orderArray));
+        //   // tempOrderIdCounter = tempOrderIdCounter + 1;
+        //  // alert("Votre commande est validée");
+        // }
 
         row_2_data_1.appendChild(img);
         row_2.appendChild(row_2_data_1);
@@ -228,6 +230,33 @@ document.addEventListener("DOMContentLoaded", (event) => {
         tbody.appendChild(row_2);
       }
     }
+  
+  }
+  function Order() {
+    // qty.defaultValue=1;
+    ShopCart = localStorage;
+    let orderDate = Date.now();
+    let orderQty = qty.value;
+    let orderProdName = product.prodName;
+    let orderProdPrice = product.prodPrice;
+    let total = product.prodPrice * orderQty;
+    
+    // tempOrderIdCounter = tempOrderIdCounter + 1;
+    // let orderId = oId + tempOrderIdCounter;
+    //console.log("prderId = " + orderId);
+
+    let orderArray = [
+      orderId,
+      orderDate,
+      orderProdName,
+      orderProdPrice,
+      orderQty,
+      total,
+    ];
+
+    localStorage.setItem(orderId, JSON.stringify(orderArray));
+    // tempOrderIdCounter = tempOrderIdCounter + 1;
+   // alert("Votre commande est validée");
   }
   populate();
 });
