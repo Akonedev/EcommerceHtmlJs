@@ -1,92 +1,104 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   event.preventDefault();
-  const createTableFromJs = document.getElementById("CreateTableFromJSON");
-  const catPhone = document.getElementById("phones");
-  const catTv = document.getElementById("tv");
-  const catAccessories = document.getElementById("accessories");
-  const catEarPhone = document.getElementById("earphone");
+
   const catLaptop = document.getElementById("laptop");
-  const orderCounter = 123456;
+  const catEarPhone = document.getElementById("earphone");
+  const catGaming = document.getElementById("gaming");
 
-  // catPhone.onclick= function () {
-  //   const key = "Phone";
-  //   const value= "86094";
-  //   const result = data.filter(d=>d[key]==value);
-  // }
+  const catalogModal = document.getElementById("categoryModal");
+  const catalogModalLabel = document.getElementById("categoryModalLabel");
+  const catModalBody = document.getElementById("categoryModalBody");
+  const catModalFooter = document.getElementById("categoryModalFooter");
 
-  // catTv.onclick= function () {}
+  const orderIdCounter = 123456;
+  let category = "";
 
+  async function populate() {
+    const requestURL = "./assets/json/ProductList.json";
+    const request = new Request(requestURL);
 
-  // catAccessories.onclick= function () {}
+    const response = await fetch(request);
+    const productText = await response.text();
 
-  // catEarPhone.onclick= function () {}
+    const products = JSON.parse(productText);
 
-  // catLaptop.onclick= function () {}
+    catEarPhone.onclick = function () {
+      catModalBody.innerHTML = "";
+      cartTotalGeneral.innerHTML ="";
+      category = "earphone";
+      catalogModalLabel.innerHTML = "Catalog  -  " + category.toUpperCase();
+      populateProducts(products, category);
+    };
 
-  //createTableFromJs.onclick = function () {}
+    catLaptop.onclick = function () {
+      catModalBody.innerHTML = "";
+      cartTotalGeneral.innerHTML ="";
+      category = "laptop";
+      catalogModalLabel.innerHTML = "Catalog  -  " + category.toUpperCase();
+      populateProducts(products, category);
+    };
 
+    catGaming.onclick = function () {
+      catModalBody.innerHTML = "";
+      cartTotalGeneral.innerHTML ="";
+      category = "gaming";
+      catalogModalLabel.innerHTML = "Catalog  -  " + category.toUpperCase();
+      populateProducts(products, category);
+    };
+  }
 
+  function populateProducts(obj, category) {
+    cartTotalGeneral.innerHTML ="";
 
-    async function populate() {
-      const requestURL = "./assets/json/ProductList.json";
-      const request = new Request(requestURL);
+    const productList = obj["products"];
+    let popCategory = category;
 
-      const response = await fetch(request);
-      const productText = await response.text();
+    let table = document.createElement("table");
+    let thead = document.createElement("thead");
+    let tbody = document.createElement("tbody");
 
-      const products = JSON.parse(productText);
-  
-      populateProducts(products);
-    }
+    table.appendChild(thead);
+    table.appendChild(tbody);
 
-    function populateProducts(obj) {
-      const section = document.querySelector("sectionProducts");
-      const productList = obj["products"];
+    // Creating and adding data to first row of the table
+    let row_1 = document.createElement("tr");
 
-      let table = document.createElement("table");
-      let thead = document.createElement("thead");
-      let tbody = document.createElement("tbody");
+    let heading_1 = document.createElement("th");
+    heading_1.innerHTML = "Image";
 
-      table.appendChild(thead);
-      table.appendChild(tbody);
+    let heading_2 = document.createElement("th");
+    heading_2.innerHTML = "Produits";
 
-      // Creating and adding data to first row of the table
-      let row_1 = document.createElement("tr");
+    let heading_3 = document.createElement("th");
+    heading_3.innerHTML = "Descriptions";
 
-      let heading_1 = document.createElement("th");
-      heading_1.innerHTML = "Image";
+    let heading_4 = document.createElement("th");
+    heading_4.innerHTML = "Prix";
 
-      let heading_2 = document.createElement("th");
-      heading_2.innerHTML = "Produits";
+    let heading_5 = document.createElement("th");
+    heading_5.innerHTML = "Disponibilite";
 
-      let heading_3 = document.createElement("th");
-      heading_3.innerHTML = "Descriptions";
+    let heading_6 = document.createElement("th");
+    heading_6.innerHTML = "Quantite a commander";
 
-      let heading_4 = document.createElement("th");
-      heading_4.innerHTML = "Prix";
+    let heading_7 = document.createElement("th");
+    heading_7.innerHTML = "Commander";
 
-      let heading_5 = document.createElement("th");
-      heading_5.innerHTML = "Disponibilite";
+    row_1.appendChild(heading_1);
+    row_1.appendChild(heading_2);
+    row_1.appendChild(heading_3);
+    row_1.appendChild(heading_4);
+    row_1.appendChild(heading_5);
+    row_1.appendChild(heading_6);
+    row_1.appendChild(heading_7);
+    thead.appendChild(row_1);
 
-      let heading_6 = document.createElement("th");
-      heading_6.innerHTML = "Quantite a commander";
+    // Adding the entire table to the body tag
+    catModalBody.appendChild(table);
 
-      let heading_7 = document.createElement("th");
-      heading_7.innerHTML = "Commander";
-
-      row_1.appendChild(heading_1);
-      row_1.appendChild(heading_2);
-      row_1.appendChild(heading_3);
-      row_1.appendChild(heading_4);
-      row_1.appendChild(heading_5);
-      row_1.appendChild(heading_6);
-      row_1.appendChild(heading_7);
-      thead.appendChild(row_1);
-
-      // Adding the entire table to the body tag
-      document.getElementById("sectionProducts").appendChild(table);
-
-      for (const product of productList) {
+    for (const product of productList) {
+       if (product.Categorie == popCategory) {
+         
         // Creating and adding data to second row of the table
         let row_2 = document.createElement("tr");
 
@@ -98,8 +110,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let row_2_data_6 = document.createElement("td");
         let row_2_data_7 = document.createElement("td");
 
-        let img = document.createElement('img');
-        img.src = "./assets/img/phones2.png"; 
+        let img = document.createElement("img");
+        img.src = "./assets/img/phones2.png";
         img.setAttribute("class", "cartImgSize");
 
         row_2_data_2.textContent = `${product.prodName}`;
@@ -108,7 +120,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         row_2_data_5.textContent = `${product.status}`;
 
         let qty = document.createElement("input");
-        qty.setAttribute("id", "prodQty")
+        qty.setAttribute("id", "prodQty");
         qty.setAttribute("type", "number");
         qty.setAttribute("value", "default");
         row_2_data_6.appendChild(qty);
@@ -117,7 +129,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         btn.innerHTML = "Commander";
         row_2_data_7.appendChild(btn);
 
-        let tempOrderIdCounter = orderCounter + 1;
+        let tempOrderIdCounter = orderIdCounter + 1;
 
         btn.onclick = function () {
           let ShopCart = localStorage;
@@ -142,7 +154,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
           localStorage.setItem(orderId, JSON.stringify(orderArray));
           tempOrderIdCounter = tempOrderIdCounter + 1;
-
         };
 
         row_2_data_1.appendChild(img);
@@ -156,6 +167,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         tbody.appendChild(row_2);
       }
     }
-
-    populate();
+   }
+  populate();
 });

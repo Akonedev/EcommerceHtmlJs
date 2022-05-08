@@ -38,9 +38,11 @@
                         </svg>
                     </a> 
                 </li> -->
-                    <li class="nav-item"> <a class="nav-link p-2 pb-3 ps-2 pe-2 pt-3" href="#" title="View Cart">
-                            <i class="bi bi-cart3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <span class="small badge bg-danger"
+                    <li class="nav-item">
+                        <a class="nav-link p-2 pb-3 ps-2 pe-2 pt-3" title="View Cart" data-bs-toggle="modal"
+                            data-bs-target="#cartModal">
+                            <i class="bi bi-cart3">
+                                <span class="small badge bg-danger" id="cartProdBagde"
                                     style="position: fixed;margin-top: -1em;font-weight: 500;">(0)</span>
                             </i>
                         </a>
@@ -117,13 +119,14 @@
                             <img src="./assets/img/Catalog/computer4.jpg" class="img-fluid w-100" alt="laptop image"
                                 width="280px" height="280px">
                             <div class="bottom-0 end-0  pb-5 pe-4 position-absolute ps-4 start-0">
-                                <h2 class="h5 mb-3">Ordianteurs</h2>
-                                <a class="link-secondary small stretched-link text-decoration-none"
+                                <h2 class="h5 mb-3">Ordinateurs</h2>
+                                <!-- <a class="link-secondary small stretched-link text-decoration-none" id ="laptop"
                                     data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">Voir le Catalogue
+                                </a> -->
+
+                                <a class="link-secondary small stretched-link text-decoration-none" id="laptop"
+                                    data-bs-toggle="modal" data-bs-target="#categoryModal">Voir le Catalogue
                                 </a>
-                                <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">
-                                    Launch demo modal
-                                  </button> -->
                             </div>
                         </div>
                     </div>
@@ -133,11 +136,8 @@
                                 width="280px" height="280px">
                             <div class="bottom-0 end-0  pb-5 pe-4 position-absolute ps-4 start-0">
                                 <h2 class="h5 mb-3">Nos Ecouteurs</h2>
-                                <!-- <a href="#"
-                                    class="link-secondary small stretched-link text-decoration-none " data-bs-toggle="modal" data-bs-target="#staticBackdrop">Voir le Catalogue
-                                </a> -->
-                                <a class="link-secondary small stretched-link text-decoration-none"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">Voir le Catalogue
+                                <a class="link-secondary small stretched-link text-decoration-none" id="earphone"
+                                    data-bs-toggle="modal" data-bs-target="#categoryModal">Voir le Catalogue
                                 </a>
                             </div>
                         </div>
@@ -148,8 +148,8 @@
                                 alt="Product image" width="280px" height="280px">
                             <div class="bottom-0 end-0  pb-5 pe-4 position-absolute ps-4 start-0">
                                 <h2 class="h5 mb-3">Gaming</h2>
-                                <a class="link-secondary small stretched-link text-decoration-none"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">Voir le Catalogue
+                                <a class="link-secondary small stretched-link text-decoration-none" id="gaming"
+                                    data-bs-toggle="modal" data-bs-target="#categoryModal">Voir le Catalogue
                                 </a>
                             </div>
                         </div>
@@ -424,7 +424,7 @@
             <div class="container pb-4 pt-4">
                 <div class="row">
                     <div class="col-lg-8 ms-auto me-auto py-3">
-                        <h2 class="text-dark">Adhérer a notre newsletter pour avoir une remise de 15%</h2>
+                        <h2 class="text-dark">Inscrivez-vous a notre newsletter pour avoir une remise de 15%</h2>
                         <p class="mb-5 text-secondary">Enregistrer-vous à notre newsletter pour avoir les dernières
                             offres
                         </p>
@@ -546,48 +546,62 @@
     <script src="./assets/js/ProductListTable.js"></script>
     <!-- <script src="./assets/js/customTable.js"></script> -->
 
-    <!-- Modal Long Catalog -->
-    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle"
-        style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header" id="cartModalHeader">
+                    <div class="row">
+                        <div class="col modalHeaderLabel d-flex justify-content-center text-center"
+                            id="modalHeaderLabelDiv">
+                            <h5 class="modal-title" id="cartModalLabel"></h5>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p>This is some placeholder content to show the scrolling behavior for modals. We use repeated line
-                        breaks to demonstrate how content can exceed minimum inner height, thereby showing inner
-                        scrolling. When content becomes longer than the prefedined max-height of modal, content will be
-                        cropped and scrollable within the modal.</p>
-                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                    <p>This content should appear at the bottom after you scroll.</p>
+                <div class="modal-body" id="cartModalBody">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="modal-footer" id="cartModalFooter">
+                    <div class="container">
+                        <div class="row" id="cartTotalGeneral">
+                            <h5 class="modal-title" id="cartModalTotal"></h5>
+                        </div>
+
+                        <div class="row">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
 
-    <!-- Modal shopping Cart -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+      <!-- Product Modal -->
+      <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header" id="categoryModalHeader">
+                    <div class="row">
+                        <div class="col modalHeaderLabel d-flex justify-content-center text-center"
+                            id="modalHeaderLabelDiv">
+                            <h5 class="modal-title" id="categoryModalLabel"></h5>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    ...
+                <div class="modal-body" id="categoryModalBody">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="modal-footer" id="categorypModalFooter">
+                    <div class="container">
+                        <div class="row" id="cartTotalGeneral">
+                            <h5 class="modal-title" id="categoryModalTotal"></h5>
+                        </div>
+
+                        <div class="row">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

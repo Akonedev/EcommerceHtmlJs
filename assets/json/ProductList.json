@@ -6,53 +6,53 @@
     "products" : [
       {
         "prodId" : 99334,
-        "prodName" : "iPhone12 ",
-        "prodDesc" : "Bleu - 64 Go",
+        "prodName" : "ipod pro ",
+        "prodDesc" : "blanc",
         "prodPrice" : 809.00,
-        "image" : "Smartphones",
+        "image" : "earphone",
         "status" : "En stock",
-        "Categorie" : "Smartphones",
+        "Categorie" : "earphone",
         "tags" : [
-          "Smartphones",
+          "earphone",
           "Electronic"
         ]
       },
       {
         "prodId" : 99334,
         "prodName" : "dell laptop",
-        "prodDesc" : "Bleu - 64 Go",
+        "prodDesc" : "gris - 500 Go",
         "prodPrice" : 809.00,
-        "image" : "Smartphones",
+        "image" : "laptop",
         "status" : "En stock",
         "Categorie" : "laptop",
         "tags" : [
-          "Smartphones",
+          "laptop",
           "Electronic"
         ]
       },
       {
         "prodId" : 99334,
         "prodName" : "Bose QC35 II ",
-        "prodDesc" : "Bleu - 64 Go",
+        "prodDesc" : "Noir",
         "prodPrice" : 809.00,
         "image" : "earphone",
         "status" : "En stock",
         "Categorie" : "earphone",
         "tags" : [
-          "Smartphones",
+          "earphone",
           "Electronic"
         ]
       },
       {
         "prodId" : 99334,
-        "prodName" : "tv samsung ",
-        "prodDesc" : "Bleu - 64 Go",
-        "prodPrice" : 809.00,
-        "image" : "tv",
+        "prodName" : "Playstation",
+        "prodDesc" : "Slim - 500 Go",
+        "prodPrice" : 400.00,
+        "image" : "gaming",
         "status" : "En stock",
-        "Categorie" : "tv",
+        "Categorie" : "gaming",
         "tags" : [
-          "Smartphones",
+          "gaming",
           "Electronic"
         ]
       }

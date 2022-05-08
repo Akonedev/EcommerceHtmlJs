@@ -1,20 +1,32 @@
 document.addEventListener("DOMContentLoaded", (event) => {
   event.preventDefault();
 
+  const cartModalBtn = document.getElementById("cartModal");
   const cartProdBagde = document.getElementById("cartProdBagde");
+  const cartModalHeader = document.getElementById("cartModalHeader");
+  const cartModalLabel = document.getElementById("cartModalLabel");
+  const cartModalBody = document.getElementById("cartModalBody");
+  const shopModal= document.getElementById("cartModal");
+  const shopModalTotal= document.getElementById("cartModalTotal");
+  const cartTotalGeneral= document.getElementById("cartTotalGeneral");
+
+  
+
+  let shopModalCart= false
   cartProdBagde.textContent = "0";
 
   //Update the Cart Badge
   let cartStorage = localStorage;
   const carttotal = cartStorage.getItem("Total");
   cartProdBagde.innerHTML = carttotal;
-  const cartModalBtn = document.getElementById("cartModalbtn");
 
   //Creta table for Shopping Cart
   let table = document.createElement("table");
-  table.setAttribute("class", "table table-striped");
+   table.setAttribute("class", "table table-striped");
+
   let thead = document.createElement("thead");
   let tbody = document.createElement("tbody");
+  let tfooter = document.createElement("tfoot");
 
   //Create table header for Shopping Cart
   let row_1 = document.createElement("tr");
@@ -28,18 +40,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
   heading_3.innerHTML = "Quantite";
   heading_4.innerHTML = "Total";
 
+  shopModal.onclick = function () {
+    table.innerHTML = "";
+   tbody.innerHTML = "";
+   tfooter.innerHTML = "";
+   shopModalCart= true
+    
+  };
+
 
   //When click on Shopping Cart button
   cartModalBtn.onclick = function () {
-    tbody.innerHTML = "";
-    getCart();
+
+   shopModalCart= true
+    
   };
+  if (shopModalCart= true) {
+    getCart();
+  }
 
   function getCart() {
-    const carModalHeader = document.getElementById("carModalHeader");
-    const cartModalBody = document.getElementById("carModalBody");
-    const carModalFooter = document.getElementById("carModalFooter");
     let totalGeneral =0
+    table.innerHTML = "";
+    tbody.innerHTML = "";
 
     //Get CartDetails From localStorage
     cartStorage = localStorage;
@@ -47,6 +70,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     table.appendChild(thead);
     table.appendChild(tbody);
+    table.appendChild(tfooter);        
 
     // Adding the entire table to the body tag
     cartModalBody.appendChild(table);
@@ -69,6 +93,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       const cartQty = cartArray[4];
       const carttotal = cartArray[5];
       totalGeneral = totalGeneral + carttotal
+      
       //Create table Body
       let row_2 = document.createElement("tr");
       let row_2_data_1 = document.createElement("td");
@@ -88,11 +113,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
       tbody.appendChild(row_2);
       
-      carModalHeader.innerHTML = "Votre Commande "
-      carModalHeader.setAttribute("class", "cartheader");
+      // modalBtncloseId.setAttribute ("class", "cartBtnclose")
+      cartModalHeader.setAttribute ("class", "cartheader")
+     cartModalLabel.setAttribute("class", "cartHeaderLabel");
+      cartModalLabel.innerHTML = "Votre Commande "
+      
+      //cartModalHeader.setAttribute("class", "cartheader");
 
-      carModalFooter.setAttribute("class", "cartFooter");
-      carModalFooter.innerHTML = "Total de votre commande : " + totalGeneral;
+      cartTotalGeneral.setAttribute("class", "cartTotalGeneral");
+      shopModalTotal.innerHTML = "Total de votre commande : " + totalGeneral;
     }
   }
 });
